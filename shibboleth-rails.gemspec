@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ["mikegee"]
   s.email       = ["gee.24@osu.edu"]
   s.homepage    = ""
-  s.summary     = %q{This plugin integrates Shibboletth single-signon with Rails.}
+  s.summary     = %q{This Rails plugin integrates Shibboletth single signon.}
   s.description = %q{Environment variables that Shibboleth sets are used to determine 'current_user'.  An interface to login as any user is also provided for running in development.}
 
   s.rubyforge_project = "shibboleth-rails"
