@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Shibboleth::Rails::VERSION
   s.authors     = ["mikegee"]
   s.email       = ["gee.24@osu.edu"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/ASCTech/shibboleth-rails"
   s.summary     = %q{This Rails plugin integrates Shibboletth single signon.}
   s.description = %q{Environment variables that Shibboleth sets are used to determine 'current_user'.  An interface to login as any user is also provided for running in development.}
 
