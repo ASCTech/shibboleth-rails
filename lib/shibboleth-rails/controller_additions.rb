@@ -15,14 +15,18 @@ module Shibboleth::Rails
 		def current_user
 			return @current_user if defined?(@current_user)
 			@current_user = if session[:simulate_id].present?
-												User.find(session[:simulate_id])
-											elsif authenticated?
-												User.find_or_create_from_shibboleth(shibboleth)
-											end
+			                  User.find(session[:simulate_id])
+			                elsif authenticated?
+			                  User.find_or_create_from_shibboleth(shibboleth)
+			                end
 		end
 
 		def require_shibboleth
-			unless current_user
+			if current_user
+				current_user.update_usage_stats(request, :login => session['new'])
+				session.delete('new')
+			else
+				session['new'] = true
 				if Rails.env.production?
 					base = request.protocol + request.host
 					requested_url = base + request.request_uri
