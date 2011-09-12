@@ -29,7 +29,7 @@ module Shibboleth::Rails
 				session['new'] = true
 				if Rails.env.production?
 					base = request.protocol + request.host
-					requested_url = base + request.request_uri
+					requested_url = base + request.url
 					redirect_to [base, '/Shibboleth.sso/Login?target=',
 						CGI.escape(requested_url)].join
 				else
