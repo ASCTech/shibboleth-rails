@@ -28,10 +28,8 @@ module Shibboleth::Rails
 			else
 				session['new'] = true
 				if Rails.env.production?
-					base = request.protocol + request.host
-					requested_url = base + request.url
-					redirect_to [base, '/Shibboleth.sso/Login?target=',
-						CGI.escape(requested_url)].join
+					redirect_to [request.protocol, request.host,
+						'/Shibboleth.sso/Login?target=', CGI.escape(request.url)].join
 				else
 					redirect_to new_user_session_url, :notice => 'Login first, please.'
 				end
