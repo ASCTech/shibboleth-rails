@@ -1,3 +1,4 @@
+.project
 *.gem
 .bundle
 Gemfile.lock
