@@ -8,12 +8,14 @@ module Shibboleth::Rails
 
 		module ClassMethods
 			def find_or_create_from_shibboleth(identity)
+        affiliations = identity.delete(:affiliations)
+
 				user = find_or_create_by_emplid(identity)
 
 				# names change due to marriage, etc.
 				# update_attribute is a NOOP if not different
 				user.update_attribute(:name_n, identity[:name_n])
-        user.update_role(identity[:affiliations]) if user.respond_to?(:update_role)
+        user.update_role(affiliations) if user.respond_to?(:update_role)
 				user
 			end
 		end
