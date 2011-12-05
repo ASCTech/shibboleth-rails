@@ -8,8 +8,9 @@ module Shibboleth::Rails
 		end
 
 		def shibboleth
-			{:emplid => request.env['employeeNumber'],
-			 :name_n => request.env['REMOTE_USER'].chomp("@osu.edu")}
+			{:emplid       => request.env['employeeNumber'],
+			 :name_n       => request.env['REMOTE_USER'].chomp("@osu.edu"),
+			 :affiliations => request.env['affiliation']}
 		end
 
 		def current_user

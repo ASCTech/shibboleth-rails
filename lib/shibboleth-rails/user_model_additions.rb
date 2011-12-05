@@ -13,7 +13,7 @@ module Shibboleth::Rails
 				# names change due to marriage, etc.
 				# update_attribute is a NOOP if not different
 				user.update_attribute(:name_n, identity[:name_n])
-
+        user.update_role(identity[:affiliations]) if user.respond_to?(:update_role)
 				user
 			end
 		end
