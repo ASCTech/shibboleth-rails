@@ -32,6 +32,7 @@ module Shibboleth::Rails
 					redirect_to [request.protocol, request.host,
 						'/Shibboleth.sso/Login?target=', CGI.escape(requested_url)].join
 				else
+				  session['target'] = requested_url
 					redirect_to new_user_session_url, :notice => 'Login first, please.'
 				end
 			end

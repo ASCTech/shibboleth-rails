@@ -12,7 +12,8 @@ class UserSessionsController < ApplicationController
 
   def create
     session[:simulate_id] = params[:user_id]
-    redirect_to root_url
+    target = session.delete :target
+    redirect_to target || root_url
   end
 
   def destroy
