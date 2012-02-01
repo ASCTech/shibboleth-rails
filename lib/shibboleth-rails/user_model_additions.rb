@@ -40,7 +40,7 @@ module Shibboleth::Rails
         end
         self.last_request_at = Time.now if self.respond_to?(:last_request_at)
 
-        save
+        save(:validate => false)
       end
     end
 
