@@ -23,7 +23,7 @@ class UserSessionsController < ApplicationController
 
   private
   def not_in_production
-    redirect_to root_url if Rails.env.production?
+    redirect_to root_url if Rails.env.production? or Rails.env.staging?
   end
 
 end

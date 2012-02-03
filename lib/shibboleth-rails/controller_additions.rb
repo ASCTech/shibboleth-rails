@@ -28,7 +28,7 @@ module Shibboleth::Rails
         session.delete('new')
       else
         session['new'] = true
-        if Rails.env.production?
+        if Rails.env.production? or Rails.env.staging?
           redirect_to [request.protocol, request.host,
             '/Shibboleth.sso/Login?target=', CGI.escape(requested_url)].join
         else
