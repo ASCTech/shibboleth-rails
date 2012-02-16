@@ -1,5 +1,5 @@
 <%= form_tag user_session_path do %>
   Login as:
-  <%= select_tag :user_id, options_from_collection_for_select(@users, :id, :name_n), :class => 'chosen' %>
+  <%= select_tag :user_id, options_from_collection_for_select(@users, :id, :name_n), :class => 'chosen autosubmit' %>
   <%= submit_tag "Login", :class => 'btn' %>
 <% end %>
