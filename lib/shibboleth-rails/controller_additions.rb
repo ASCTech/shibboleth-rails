@@ -28,12 +28,11 @@ module Shibboleth::Rails
         session.delete('new')
       else
         session['new'] = true
-        if Rails.env.production? or Rails.env.staging?
-          redirect_to [request.protocol, request.host,
-            '/Shibboleth.sso/Login?target=', CGI.escape(requested_url)].join
+
+        if request.xhr?
+          render :json => {:login_url => login_url}, :status => 401
         else
-          session['target'] = requested_url
-          redirect_to new_user_session_url, :notice => 'Login first, please.'
+          redirect_to login_url
         end
       end
     end
@@ -45,6 +44,16 @@ module Shibboleth::Rails
         request.protocol + request.host + request.request_uri
       end
     end
+
+    def login_url
+      if Rails.env.production? || Rails.env.staging?
+        [request.protocol, request.host, '/Shibboleth.sso/Login?target=', CGI.escape(requested_url)].join
+      else
+        session['target'] = requested_url
+        new_user_session_url
+      end
+    end
+
   end
 
 end
