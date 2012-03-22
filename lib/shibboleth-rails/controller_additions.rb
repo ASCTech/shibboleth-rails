@@ -38,7 +38,9 @@ module Shibboleth::Rails
     end
 
     def requested_url
-      if request.respond_to?(:url)
+      if request.xhr?
+        url_for :controller => 'root', :action => 'show', :xhr => 'true'
+      elsif request.respond_to?(:url)
         request.url
       else
         request.protocol + request.host + request.request_uri
