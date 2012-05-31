@@ -28,7 +28,7 @@ module Shibboleth::Rails
         session.delete('new')
       else
         session['new'] = true
-
+        session.delete(:simulate_id)
         if request.xhr?
           render :json => {:login_url => login_url}, :status => 401
         else
