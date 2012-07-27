@@ -37,10 +37,14 @@ module Shibboleth::Rails
             self.last_login_ip = self.current_login_ip if self.respond_to?(:last_login_ip)
             self.current_login_ip = request.remote_ip
           end
+
+          self.login_callback(request, args) if self.respond_to?(:login_callback)
         end
         self.last_request_at = Time.now if self.respond_to?(:last_request_at)
 
         save(:validate => false)
+
+        self.request_callback(request, args) if self.respond_to?(:request_callback)
       end
     end
 
