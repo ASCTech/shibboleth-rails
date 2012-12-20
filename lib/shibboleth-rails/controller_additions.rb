@@ -26,6 +26,7 @@ module Shibboleth::Rails
       if current_user
         current_user.update_usage_stats(request, :login => session['new'])
         session.delete('new')
+        session[:user_id] = current_user.id
       else
         session['new'] = true
         session.delete(:simulate_id)
