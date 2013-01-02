@@ -19,6 +19,8 @@ module Shibboleth::Rails
                         User.find(session[:simulate_id])
                       elsif authenticated?
                         User.find_or_create_from_shibboleth(shibboleth)
+                      elsif request.xhr?
+                        User.find_by_id(session[:user_id])
                       end
     end
 
