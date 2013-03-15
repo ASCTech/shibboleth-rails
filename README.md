@@ -1,6 +1,6 @@
 # shibboleth-rails
 
-[Gem page](https://rubygems.org/gems/shibboleth-rails)
+[![Gem Version](https://badge.fury.io/rb/shibboleth-rails.png)](http://badge.fury.io/rb/shibboleth-rails)
 
 The [Shibboleth](http://shibboleth.internet2.edu/) System is a standards based, open source software package for web single sign-on across or within organizational boundaries. It allows sites to make informed authorization decisions for individual access of protected online resources in a privacy-preserving manner.
 
