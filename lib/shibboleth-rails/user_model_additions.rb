@@ -44,10 +44,10 @@ module Shibboleth::Rails
           end
 
           self.login_callback(request, args) if self.respond_to?(:login_callback)
-        end
-        self.last_request_at = Time.now if self.respond_to?(:last_request_at)
 
-        save(:validate => false)
+          save(:validate => false)
+
+        end
 
         self.request_callback(request, args) if self.respond_to?(:request_callback)
       end
