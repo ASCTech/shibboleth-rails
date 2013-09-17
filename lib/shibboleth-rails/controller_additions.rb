@@ -57,7 +57,7 @@ module Shibboleth::Rails
         [request.protocol, request.host, '/Shibboleth.sso/Login?target=', CGI.escape(requested_url)].join
       else
         session['target'] = requested_url
-        logger.debug("Environment: #{Rails.env}")
+        Rails.logger.debug("Environment: #{Rails.env}")
         new_user_session_url
       end
     end
