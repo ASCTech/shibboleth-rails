@@ -16,9 +16,12 @@ module Shibboleth::Rails
         # user matching it's key/value pair. If they exist then we'll use them,
         # otherwise we'll have to create a new one...
 
-        user = identity.inject(nil) do |user, key_val|
-          where(Hash[*key_val]).first
-        end || create!(identity)
+        user = nil
+        identity.each do |key_val|
+          user = where(Hash[*key_val]).first
+          break if user
+        end
+        create!(identity) unless user
 
         # names change due to marriage, etc.
         # update_attribute is a NOOP if not different
