@@ -18,14 +18,15 @@ module Shibboleth::Rails
     end
 
     def current_user
-      return @current_user if defined?(@current_user)
-      @current_user = if session[:simulate_id].present?
-                        User.find(session[:simulate_id])
-                      elsif authenticated?
-                        User.find_or_create_from_shibboleth(shibboleth)
-                      elsif request.xhr?
-                        User.find_by_id(session[:user_id])
-                      end
+      @current_user ||= begin
+        if session[:simulate_id].present?
+          User.find(session[:simulate_id])
+        elsif authenticated?
+          User.find_or_create_from_shibboleth(shibboleth)
+        elsif request.xhr?
+          User.where(id: session[:user_id]).first
+        end
+      end
     end
 
     def require_shibboleth
