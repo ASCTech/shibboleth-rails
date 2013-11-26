@@ -17,8 +17,9 @@ module Shibboleth::Rails
         # names change due to marriage, etc.
         # update_attribute is a NOOP if not different
         user.update_attribute(:name_n, identity[:name_n])
-        user.update_attribute(:first_name, first_name) if user.respond_to?(:first_name) && first_name.present?
-        user.update_attribute(:last_name, last_name) if user.respond_to?(:last_name) && last_name.present?
+        user.update_attribute(:emplid, identity[:emplid])
+        user.update_attribute(:first_name, first_name) if user.class.columns.map(&:first_name).include?('first_name') && first_name.present?
+        user.update_attribute(:last_name, last_name) if user.class.columns.map(&:last_name).include?('last_name') && last_name.present?
 
         user.update_role(affiliations) if user.respond_to?(:update_role)
         user
