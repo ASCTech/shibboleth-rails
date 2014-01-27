@@ -9,20 +9,29 @@ module Shibboleth
 
             private
 
+            ##
+            #
+            #
             def authenticated?
               request.env['employeeNumber'].present?
             end
 
+            ##
+            #
+            #
             def shibboleth
               {
-                :emplid       => request.env['employeeNumber'],
-                :name_n       => request.env['REMOTE_USER'].chomp("@osu.edu"),
-                :affiliations => request.env['affiliation'],
-                :first_name   => request.env['FIRST-NAME'] || request.env['givenName'],
-                :last_name    => request.env['LAST-NAME'] || request.env['sn'],
+                emplid: request.env['employeeNumber'],
+                name_n: request.env['REMOTE_USER'].chomp("@osu.edu"),
+                affiliations: request.env['affiliation'],
+                first_name: request.env['FIRST-NAME'] || request.env['givenName'],
+                last_name: request.env['LAST-NAME'] || request.env['sn'],
               }
             end
 
+            ##
+            #
+            #
             def current_user
               @current_user ||= begin
                 if session[:simulate_id].present?
@@ -36,9 +45,22 @@ module Shibboleth
             end
             helper_method :current_user
 
-            def require_shibboleth
+            ##
+            #
+            #
+            def current_user?
+              !!current_user
+            end
+            helper_method :current_user?
+
+            ##
+            #
+            #
+            def require_login
               if current_user
-                current_user.update_usage_stats(request, :login => session['new'])
+                if current_user.respond_to?(:update_usage_stats)
+                  current_user.update_usage_stats(request, :login => session['new'])
+                end
                 session.delete('new')
                 session[:user_id] = current_user.id
               else

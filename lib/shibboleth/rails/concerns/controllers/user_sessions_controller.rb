@@ -12,7 +12,7 @@ module Shibboleth
             # skip CanCan authorization
             skip_authorization_check if respond_to?(:skip_authorization_check)
 
-            skip_before_action :require_shibboleth
+            skip_before_action :require_login
             before_action :not_in_production
 
             def new

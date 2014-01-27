@@ -6,6 +6,62 @@ The [Shibboleth](http://shibboleth.internet2.edu/) System is a standards based, 
 
 This library determines `current_user` from environment variables set by `mod_shib` in Apache. An interface to login as any user is also provided for running in development.
 
+### Getting Started
+
+This gem is designed to be very modular which allows you to use all of it or only the pieces you desire. For basic usage you will need a `User` model and an `ApplicationController`.
+
+####Gemfile
+
+    gem 'shibboleth-rails'
+
+#### app/models/user.rb
+
+There are two ways that you can add shibboleth to your User model. The first and easiest way is to simply inherit from `Shibboleth::Rails::User`.
+
+    class User < Shibboleth::Rails::User
+      ...
+    end
+
+This is great if your user model would normally inherit from `ActiveModel::Base`. If your model inherits from something else or you only want specific pieces of the functionality you can include the concerns
+
+    class User < ActiveModel::Base
+      # include the class or instance methods separately...
+      include Shibboleth::Rails::Concerns::Models::User::InstanceMethods
+      include Shibboleth::Rails::Concerns::Models::User::ClassMethods
+
+      # or include both the instance and class methods...
+      include Shibboleth::Rails::Concerns::Models::User
+    end
+
+#### app/controllers/application_controller.rb
+
+As with the User model the easiest way to get the shibboleth functionality at the controller level is to have an ApplicationController that inherits from Shibboleth::Rails::ApplicationController
+
+    class ApplicationController < Shibboleth::Rails::ApplicationController
+      ...
+    end
+
+If you don't wish to (or are unable to) take this approach you can include the cocerns directly within your controller
+
+    class ApplicationController < ActionController::Base
+      include Shibboleth::Rails::Concerns::Controllers::ApplicationController
+    end
+
+By default the application controller will __not__ require a login. To enable this you need the `reqire_login` before filter/action.
+
+*In previous versions of this gem the filter/action was called `require_shibboleth`*.
+
+    class ApplicationController < ActionController::Base
+      include Shibboleth::Rails::Concerns::Controllers::ApplicationController
+
+      before_action :require_login
+    end
+
+#### UserSessionsController
+
+In development mode *real* shibboleth is not invoked but rather a login page is displayed that allows you to select which user to login as from a `<select>`. This is handled by the `Shibboleth::Rails::UserSessionsController`.
+
+If you need to extend or override some (or all) of it's functionality you can do so by creating a controller at `app/controllers/shibboleth/rails/user_sessions_controller.rb`. From here you can inherit from the shibboleth class or include the concern (`Shibboleth::Rails::Concerns::Controllers::UserSessionsController`).
 
 ### Related projects
 
