@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Shibboleth::Rails::VERSION
   s.authors     = ["Kyle Decot"]
   s.email       = ["decot.7@osu.edu"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ShibbolethRails."
-  s.description = "TODO: Description of ShibbolethRails."
+  s.homepage    = "https://github.com/ASCTech/shibboleth-rails"
+  s.summary     = "ShibbolethRails."
+  s.description = "ShibbolethRails."
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
