@@ -5,8 +5,8 @@ require "shibboleth/rails/version"
 Gem::Specification.new do |s|
   s.name        = "shibboleth-rails"
   s.version     = Shibboleth::Rails::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
+  s.authors     = ["Kyle Decot"]
+  s.email       = ["decot.7@osu.edu"]
   s.homepage    = "TODO"
   s.summary     = "TODO: Summary of ShibbolethRails."
   s.description = "TODO: Description of ShibbolethRails."
