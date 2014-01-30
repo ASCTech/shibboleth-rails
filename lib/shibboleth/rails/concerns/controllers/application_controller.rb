@@ -7,7 +7,7 @@ module Shibboleth
 
           included do
 
-            private
+          private
 
             ##
             #
