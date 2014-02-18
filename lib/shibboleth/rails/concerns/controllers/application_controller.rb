@@ -39,7 +39,7 @@ module Shibboleth
                 elsif authenticated?
                   ::User.find_or_create_from_shibboleth(shibboleth)
                 elsif request.xhr?
-                  ::User.where(id: session[:user_id]).first
+                  ::User.where(arel_table[::User.primary_key].eq(session[::User.primary_key])).first
                 end
               end
             end
@@ -62,7 +62,7 @@ module Shibboleth
                   current_user.update_usage_stats(request, :login => session['new'])
                 end
                 session.delete('new')
-                session[:user_id] = current_user.id
+                session[::User.primary_key] = current_user.id
               else
                 session['new'] = true
                 session.delete(:simulate_id)
