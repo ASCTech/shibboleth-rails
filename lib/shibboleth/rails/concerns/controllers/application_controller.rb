@@ -35,11 +35,11 @@ module Shibboleth
             def current_user
               @current_user ||= begin
                 if session[:simulate_id].present?
-                  ::User.find(session[:simulate_id])
+                  ::User.unscoped.find(session[:simulate_id])
                 elsif authenticated?
-                  ::User.find_or_create_from_shibboleth(shibboleth)
+                  ::User.unscoped.find_or_create_from_shibboleth(shibboleth)
                 elsif request.xhr?
-                  ::User.where(arel_table[::User.primary_key].eq(session[::User.primary_key])).first
+                  ::User.unscoped.where(arel_table[::User.primary_key].eq(session[::User.primary_key])).first
                 end
               end
             end
