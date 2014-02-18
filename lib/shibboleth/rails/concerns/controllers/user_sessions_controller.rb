@@ -21,7 +21,6 @@ module Shibboleth
 
             def create
               session[:simulate_id] = params[::User.primary_key]
-              binding.pry
               session['new'] = true
               target = session.delete :target
               redirect_to target || main_app.root_url
